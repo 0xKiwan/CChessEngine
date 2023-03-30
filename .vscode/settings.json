@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "board.h": "c",
+        "piece.h": "c",
+        "result.h": "c"
+    }
+}
