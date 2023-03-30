@@ -18,11 +18,14 @@ int main(int argc, char* argv[])
     if (res != CCHESS_RES_OK)
     {
         // Print the error
-        printf("Error: %s\n", error);
+        printf("Board init error: %s\n", error);
 
         // Exit with error code.
         return 1;
     }
+
+    // Print the board
+    cchess_board_print(&board, &error);
 
     // Return OK
     return 0;

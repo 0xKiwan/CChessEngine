@@ -152,7 +152,7 @@ cchess_e_result_t cchess_piece_print(cchess_piece_t* piece, const char** error)
     }
 
     // Print the piece location, type and colour
-    printf("Square: %c%d, Piece Type: %s, Piece Color: %s\n", piece->col, piece->row, piece_type, piece_color);
+    // printf("Square: %c%d, Piece Type: %s, Piece Color: %s\n", piece->col, piece->row, piece_type, piece_color);
 
     // Return OK
     return CCHESS_RES_OK;
