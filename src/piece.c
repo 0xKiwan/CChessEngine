@@ -3,10 +3,17 @@
 #include "../inc/piece.h"
 
 // Implementation for 'piece.h' cchess_piece_init()
-cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t type, cchess_e_piece_color_t color)
+cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t type, cchess_e_piece_color_t color, const char** error)
 {
     // Check the piece is valid
-    if (piece == NULL) return CCHESS_RES_ERR;
+    if (piece == NULL) 
+    {
+        // Set the error message
+        *error = "Piece is NULL";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // Initialize the piece
     piece->type     = type;
@@ -19,10 +26,17 @@ cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t
 }
 
 // Implementation for 'piece.h' cchess_piece_move()
-cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row)
+cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row, const char** error)
 {
     // Check the piece is valid
-    if (piece == NULL) return CCHESS_RES_ERR;
+    if (piece == NULL) 
+    {
+        // Set the error message
+        *error = "Piece is NULL";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // TODO: Check the move is valid
 
@@ -35,10 +49,17 @@ cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row)
 }
 
 // Implementation for 'piece.h' cchess_piece_capture()
-cchess_e_result_t cchess_piece_capture(cchess_piece_t* piece)
+cchess_e_result_t cchess_piece_capture(cchess_piece_t* piece, const char** error)
 {
     // Check the piece is valid
-    if (piece == NULL) return CCHESS_RES_ERR;
+    if (piece == NULL) 
+    {
+        // Set the error message
+        *error = "Piece is NULL";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // Capture the piece
     piece->col      = '\0';
@@ -51,16 +72,37 @@ cchess_e_result_t cchess_piece_capture(cchess_piece_t* piece)
 }
 
 // Implementation for 'piece.h' cchess_piece_promote()
-cchess_e_result_t cchess_piece_promote(cchess_piece_t* piece, cchess_e_piece_type_t type)
+cchess_e_result_t cchess_piece_promote(cchess_piece_t* piece, cchess_e_piece_type_t type, const char** error)
 {
     // Check the piece is valid
-    if (piece == NULL) return CCHESS_RES_ERR;
+    if (piece == NULL) 
+    {
+        // Set the error message
+        *error = "Piece is NULL";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // Check the piece is a pawn
-    if (piece->type != CCH_PIECE_TYPE_PAWN) return CCHESS_RES_ERR;
+    if (piece->type != CCH_PIECE_TYPE_PAWN) 
+    {
+        // Set the error message
+        *error = "Cannot promote a non-pawn piece";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // Check the row is valid
-    if ((piece->color == CCH_PIECE_COLOR_WHITE && piece->row != 7) || (piece->color == CCH_PIECE_COLOR_BLACK && piece->row != 0)) return CCHESS_RES_ERR;
+    if ((piece->color == CCH_PIECE_COLOR_WHITE && piece->row != 7) || (piece->color == CCH_PIECE_COLOR_BLACK && piece->row != 0))
+    {
+        // Set the error message
+        *error = "Pawn promotion attempted on the wrong row.";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // Promote the piece
     piece->type = type;
@@ -70,25 +112,47 @@ cchess_e_result_t cchess_piece_promote(cchess_piece_t* piece, cchess_e_piece_typ
 }
 
 // Implementation for 'piece.h' cchess_piece_print()
-cchess_e_result_t cchess_piece_print(cchess_piece_t* piece)
+cchess_e_result_t cchess_piece_print(cchess_piece_t* piece, const char** error)
 {
     // Get the piece type as a string
     const char* piece_type = piece_type_map[piece->type];
 
     // Check the piece is valid
-    if (piece == NULL) return CCHESS_RES_ERR;
+    if (piece == NULL) 
+    {
+        // Set the error message
+        *error = "Piece is NULL";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
 
     // Check the piece type is valid
-    if (piece_type == NULL) return CCHESS_RES_ERR;
+    if (piece_type == NULL) 
+    {
+        // Set the error message
+        *error = "Piece type is invalid";
+
+        // Return the error code.
+        return CCHESS_RES_ERR;
+    }
 
     // Get the piece colour as a string
     const char* piece_color = piece_color_map[piece->color];
 
     // Check the piece colour is valid
-    if (piece_color == NULL) return CCHESS_RES_ERR;
+    if (piece_color == NULL) 
+    {
+        // Set the error message
+        *error = "Piece color is invalid";
+
+        // Return the error code.
+        return CCHESS_RES_ERR;
+        
+    }
 
     // Print the piece location, type and colour
-    printf("Piece: %c%d, Type: %s, Color: %s\n", piece->col, piece->row, piece_type, piece_color);
+    printf("Square: %c%d, Piece Type: %s, Piece Color: %s\n", piece->col, piece->row, piece_type, piece_color);
 
     // Return OK
     return CCHESS_RES_OK;

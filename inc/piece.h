@@ -55,7 +55,7 @@ static const char* piece_color_map[] = { "White", "Black", "None" };
  * 
  * @return CCHESS_RES_OK if the piece was initialized successfully, CCHESS_RES_ERR otherwise.
  */
-cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t type, cchess_e_piece_color_t color);
+cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t type, cchess_e_piece_color_t color, const char** error);
 
 /**
  * Moves a piece to a new position.
@@ -66,7 +66,7 @@ cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t
  * 
  * @return CCHESS_RES_OK if the piece was moved successfully, CCHESS_RES_ERR otherwise.
 */
-cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row);
+cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row, const char** error);
 
 /**
  * Captures a piece by removing it from the board.
@@ -75,7 +75,7 @@ cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row);
  * 
  * @return CCHESS_RES_OK if the piece was captured successfully, CCHESS_RES_ERR otherwise.
 */
-cchess_e_result_t cchess_piece_capture(cchess_piece_t* piece);
+cchess_e_result_t cchess_piece_capture(cchess_piece_t* piece, const char** error);
 
 /**
  * Promotes a pawn to a new piece.
@@ -85,7 +85,7 @@ cchess_e_result_t cchess_piece_capture(cchess_piece_t* piece);
  * 
  * @return CCHESS_RES_OK if the pawn was promoted successfully, CCHESS_RES_ERR otherwise.
 */
-cchess_e_result_t cchess_piece_promote(cchess_piece_t* piece, cchess_e_piece_type_t type);
+cchess_e_result_t cchess_piece_promote(cchess_piece_t* piece, cchess_e_piece_type_t type, const char** error);
 
 /**
  * Debug print a piece.
@@ -94,7 +94,7 @@ cchess_e_result_t cchess_piece_promote(cchess_piece_t* piece, cchess_e_piece_typ
  * 
  * @return CCHESS_RES_OK if the piece was printed successfully, CCHESS_RES_ERR otherwise.
 */
-cchess_e_result_t cchess_piece_print(cchess_piece_t* piece);
+cchess_e_result_t cchess_piece_print(cchess_piece_t* piece, const char** error);
 
 
 #endif // _CCHESS_PIECE_H_
