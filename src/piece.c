@@ -25,6 +25,64 @@ cchess_e_result_t cchess_piece_init(cchess_piece_t* piece, cchess_e_piece_type_t
     return CCHESS_RES_OK;
 }
 
+// Internal function to handle a rook move
+cchess_e_result_t cchess_handle_rook_move(cchess_piece_t* piece, char col, int row, const char** error)
+{
+
+}
+
+// Internal function to handle a bishop move
+cchess_e_result_t cchess_handle_bishop_move(cchess_piece_t* piece, char col, int row, const char** error)
+{
+
+}
+
+// Internal function to handle a knight move
+cchess_e_result_t cchess_handle_knight_move(cchess_piece_t* piece, char col, int row, const char** error)
+{
+
+}
+
+// Internal function to handle a queen move
+cchess_e_result_t cchess_handle_queen_move(cchess_piece_t* piece, char col, int row, const char** error)
+{
+
+}
+
+// Internal function to handle a king move
+cchess_e_result_t cchess_handle_king_move(cchess_piece_t* piece, char col, int row, const char** error)
+{
+
+}
+
+// Internal function to handle a pawn move
+cchess_e_result_t cchess_handle_pawn_move(cchess_piece_t* piece, char col, int row, const char** error)
+{
+    // The pawn moves forward one square, except on its first move where it has the option of moving forward two squares.
+    // The pawn captures by moving to the square diagonally in front of it on an adjacent file,
+    // but cannot move to a square if it is not occupied by an enemy piece.
+    // The pawn is the only piece that cannot move backwards.
+
+    // We do not need to check the piece is valid as this is handled by the calling function.
+
+    // Determine the direction of the move
+    int direction = piece->color == CCH_PIECE_COLOR_WHITE ? 1 : -1;
+
+    // Check the move is valid
+    if (row != piece->row + (direction * 1) && (row != piece->row + (direction * 2) && piece->has_moved == false))
+    {
+        // Set the error message
+        *error = "Invalid move for pawn.";
+
+        // Return the error code.   
+        return CCHESS_RES_ERR;
+    }
+
+
+    // Return OK
+    return CCHESS_RES_OK;
+}
+
 // Implementation for 'piece.h' cchess_piece_move()
 cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row, const char** error)
 {
@@ -38,7 +96,28 @@ cchess_e_result_t cchess_piece_move(cchess_piece_t* piece, char col, int row, co
         return CCHESS_RES_ERR;
     }
 
-    // TODO: Check the move is valid
+    // Handle the move based on the piece type
+    switch (piece->type)
+    {
+        case CCH_PIECE_TYPE_ROOK:                                           // Handle rook move.
+            return cchess_handle_rook_move(piece, col, row, error);
+        case CCH_PIECE_TYPE_BISHOP:                                         // Handle bishop move.
+            return cchess_handle_bishop_move(piece, col, row, error);
+        case CCH_PIECE_TYPE_KNIGHT:                                         // Handle knight move.
+            return cchess_handle_knight_move(piece, col, row, error);
+        case CCH_PIECE_TYPE_QUEEN:                                          // Handle queen move.
+            return cchess_handle_queen_move(piece, col, row, error);
+        case CCH_PIECE_TYPE_KING:                                           // Handle king move.
+            return cchess_handle_king_move(piece, col, row, error);
+        case CCH_PIECE_TYPE_PAWN:                                           // Handle pawn move.
+            return cchess_handle_pawn_move(piece, col, row, error);
+        default:
+            // Set the error message
+            *error = "Piece type is invalid";
+
+            // Return the error code.   
+            return CCHESS_RES_ERR;
+    }
 
     // Move the piece
     piece->col = col;

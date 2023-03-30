@@ -34,6 +34,7 @@ typedef struct _cchess_piece_t
     cchess_e_piece_color_t  color;      // Color of piece
     int     row;                        // Row of piece, (0-7) this combines with col to mark a position like a4, d5, e3, etc.
     char    col;                        // Col of piece, (A-H) this combines with row to mark a position like a4, d5, e3, etc.
+    bool    has_moved;                  // Flag to indicate if the piece has moved yet
 } cchess_piece_t;
 
 /**
